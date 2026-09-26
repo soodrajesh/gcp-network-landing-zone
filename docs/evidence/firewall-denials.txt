@@ -1,0 +1,6 @@
+$ gcloud logging read 'logName:"compute.googleapis.com%2Ffirewall" AND jsonPayload.disposition="DENIED"' --project claude-code-507112 --freshness 1d --limit 3 --format='table(timestamp,jsonPayload.connection.src_ip:label=SRC,jsonPayload.connection.dest_ip:label=DST,jsonPayload.connection.dest_port:label=PORT,jsonPayload.rule_details.reference:label=RULE)'
+TIMESTAMP                       SRC        DST       PORT  RULE
+2026-09-26T22:18:42.111768355Z  10.10.0.2  10.0.0.2  9999  network:lz-hub/firewallPolicy:lz-hub
+2026-09-26T22:18:39.095807678Z  10.10.0.2  10.0.0.2  9999  network:lz-hub/firewallPolicy:lz-hub
+2026-09-26T22:18:36.078930282Z  10.10.0.2  10.0.0.2  9999  network:lz-hub/firewallPolicy:lz-hub
+

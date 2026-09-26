@@ -1,0 +1,11 @@
+$ gcloud network-management connectivity-tests describe lz-prod-hub --project claude-code-507112 --format='value(name.basename(),reachabilityDetails.result)'
+lz-prod-hub	REACHABLE
+
+$ gcloud network-management connectivity-tests describe lz-prod-dev --project claude-code-507112 --format='value(name.basename(),reachabilityDetails.result)'
+lz-prod-dev	UNREACHABLE
+
+$ gcloud network-management connectivity-tests describe lz-dev-prod --project claude-code-507112 --format='value(name.basename(),reachabilityDetails.result)'
+lz-dev-prod	UNREACHABLE
+
+$ (prod-dev trace, final step)
+Final state: packet dropped due to packet with internal destination address sent to Internet Gateway.

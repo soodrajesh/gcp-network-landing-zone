@@ -1,0 +1,10 @@
+$ # from lz-prod-vm (10.10.0.2), over IAP SSH
+$ curl hub :8080
+lz-hub-vm (10.0.0.2)  -> HTTP 200
+$ curl dev  :8080
+HTTP 000 (000 = no route / timeout)
+$ getent hosts shared.corp.internal dev-app.corp.internal
+10.0.0.2 shared.corp.internal;10.20.0.2 dev-app.corp.internal;
+$ # from lz-dev-vm
+$ curl prod :8080
+HTTP 000 (000 = no route / timeout)

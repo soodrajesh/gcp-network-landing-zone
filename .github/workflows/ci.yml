@@ -1,0 +1,40 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.5
+      - run: terraform -chdir=terraform fmt -check -recursive
+      - run: terraform -chdir=terraform init -backend=false -input=false
+      - run: terraform -chdir=terraform validate
+
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Trivy IaC misconfiguration scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: config
+          scan-ref: terraform
+          severity: HIGH,CRITICAL
+          exit-code: "0"
+
+  shell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y shellcheck
+      - run: shellcheck -S warning -x scripts/*.sh || true
+      - run: bash -n scripts/*.sh

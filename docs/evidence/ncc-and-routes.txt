@@ -1,0 +1,23 @@
+$ gcloud network-connectivity hubs describe lz-hub --project claude-code-507112 --format='yaml(name,presetTopology,state)'
+name: projects/claude-code-507112/locations/global/hubs/lz-hub
+presetTopology: STAR
+state: ACTIVE
+
+$ gcloud network-connectivity spokes list --project claude-code-507112 --format='table(name.basename():label=SPOKE,group.basename():label=GROUP,state,linkedVpcNetwork.uri.basename():label=VPC)'
+SPOKE    GROUP   STATE   VPC
+lz-prod  edge    ACTIVE  lz-prod
+lz-hub   center  ACTIVE  lz-hub
+lz-dev   edge    ACTIVE  lz-dev
+
+$ gcloud compute routes list --project claude-code-507112 --filter='network~lz-prod$' --format='table(name:label=ROUTE,destRange:label=DEST,priority)'
+ROUTE                                                  DEST          PRIORITY
+default-route-5d92937926f644e6                         0.0.0.0/0     1000
+default-route-r-8145d0d82741c51b                       10.10.0.0/24  0
+ncc-subnet-route-19796fdb-aa0e-5c3f-b0c5-09b8fa005d72  10.0.0.0/24   0
+
+$ gcloud compute routes list --project claude-code-507112 --filter='network~lz-dev$' --format='table(name:label=ROUTE,destRange:label=DEST,priority)'
+ROUTE                                                  DEST          PRIORITY
+default-route-e03b5f535a78945c                         0.0.0.0/0     1000
+default-route-r-8afa54fb77b2c11a                       10.20.0.0/24  0
+ncc-subnet-route-5a9b7f31-5abc-5563-afc2-d3f24b5e9aea  10.0.0.0/24   0
+
