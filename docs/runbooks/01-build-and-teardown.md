@@ -20,5 +20,7 @@ Steps: state bucket → `terraform apply` (71 resources: 3 VPCs, NCC hub + 3 spo
 ```
 It first deletes the Connectivity Tests created by the suite (they live outside Terraform), then `terraform destroy`, then prints a "billable things left" summary (VMs, routers, VPCs, NCC hubs should all be `0`).
 
+*Captured:* `Destroy complete! Resources: 71 destroyed.` then the leftover summary printed `VMs 0 · Cloud Routers 0 · VPC networks 0 · NCC hubs 0`.
+
 ## Cost while it runs
 3 × e2-micro + 3 NAT gateways + flow logs ≈ **€0.5–1 per day**; see [07](07-cost.md).
