@@ -40,7 +40,7 @@ The Cloud Console views are not included: the console needs an interactive Googl
 | **One place for names** | Private zone in hub, DNS-peered into spokes; DNS query logging | test §5 |
 | **Controlled egress** | Cloud NAT per VPC, outbound only | test §6 (the internet sees the NAT IP) |
 | **Auditability** | VPC flow logs (5 s) → BigQuery; NAT/DNS/firewall logs | test §8 |
-| **FinOps** | Budget alerts; ≈ €0.5–1/day while running, €0 after `down.sh` | [runbook 07](docs/runbooks/07-cost.md) |
+| **FinOps** | Budget alerts; ≈ €0.5–1/day while running (an estimate from list prices, not a measured bill), €0 after `down.sh` | [runbook 07](docs/runbooks/07-cost.md) |
 
 ## Architecture
 
